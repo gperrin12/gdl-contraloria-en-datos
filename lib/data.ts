@@ -87,7 +87,7 @@ export const DATASETS: Record<string, Dataset> = {
   recepcion: {
     id: "recepcion",
     title: "Mecanismos de Recepción de Denuncias",
-    subtitle: "¿Por qué canal llega la ciudadanía a denunciar?",
+    subtitle: "¿A través de qué canal llega la ciudadanía a denunciar?",
     info: "Distribución de las denuncias según el canal por el cual fueron recibidas. Permite identificar los medios más utilizados por la ciudadanía para presentar una denuncia.",
     icon: "/images/g_recepcion.svg",
     unit: "denuncias",
