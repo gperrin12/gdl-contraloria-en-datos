@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { UI, useLang } from "@/lib/i18n";
 import InfoTooltip from "./InfoTooltip";
 
 type Props = {
@@ -20,6 +23,7 @@ export default function ChartCard({
   className = "",
   children,
 }: Props) {
+  const { lang } = useLang();
   return (
     <section
       className={`group flex flex-col rounded-xl2 border border-navy/[0.06] bg-white p-5 shadow-card transition duration-300 hover:-translate-y-0.5 hover:shadow-cardHover ${className}`}
@@ -42,7 +46,9 @@ export default function ChartCard({
         {total && (
           <div className="shrink-0 text-right">
             <div className="text-lg font-bold leading-none text-gold">{total}</div>
-            <div className="text-[10.5px] uppercase tracking-wide text-navy-200">Total</div>
+            <div className="text-[10.5px] uppercase tracking-wide text-navy-200">
+              {UI.total[lang]}
+            </div>
           </div>
         )}
       </header>

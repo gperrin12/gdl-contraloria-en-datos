@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { UI, useLang } from "@/lib/i18n";
 
 type Props = {
   text: string;
@@ -13,15 +14,17 @@ type Props = {
  * Pequeño ícono de información ("i") que muestra una explicación
  * al pasar el cursor o al enfocar con teclado. Accesible.
  */
-export default function InfoTooltip({ text, side = "top", label = "Más información" }: Props) {
+export default function InfoTooltip({ text, side = "top", label }: Props) {
   const [open, setOpen] = useState(false);
+  const { lang } = useLang();
   const id = useId();
+  const ariaLabel = label ?? UI.moreInfo[lang];
 
   return (
     <span className="relative inline-flex">
       <button
         type="button"
-        aria-label={label}
+        aria-label={ariaLabel}
         aria-describedby={open ? id : undefined}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { DATE_RANGE } from "@/lib/data";
+import { UI, useLang } from "@/lib/i18n";
 
 /**
  * Selector de rango de fechas — MARCADOR DE POSICIÓN.
@@ -9,6 +10,7 @@ import { DATE_RANGE } from "@/lib/data";
  */
 export default function DateRangePicker() {
   const [open, setOpen] = useState(false);
+  const { lang } = useLang();
 
   return (
     <div className="relative">
@@ -34,14 +36,14 @@ export default function DateRangePicker() {
         </svg>
         <span className="flex flex-col leading-tight">
           <span className="text-[10px] font-medium uppercase tracking-wide text-navy-300">
-            Periodo
+            {UI.period[lang]}
           </span>
           <span className="text-[13.5px] font-semibold text-navy">
-            {DATE_RANGE.start} — {DATE_RANGE.end}
+            {DATE_RANGE.start[lang]} — {DATE_RANGE.end[lang]}
           </span>
         </span>
         <span className="ml-1 rounded-full bg-accent-yellow/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-gold-700">
-          Provisional
+          {UI.provisional[lang]}
         </span>
         <svg
           width="14"
@@ -57,16 +59,16 @@ export default function DateRangePicker() {
 
       {open && (
         <div className="absolute right-0 z-50 mt-2 w-72 rounded-xl border border-navy/10 bg-white p-4 shadow-cardHover">
-          <p className="text-[13px] font-semibold text-navy">{DATE_RANGE.label}</p>
-          <p className="mt-1 text-[12.5px] leading-snug text-navy-400">{DATE_RANGE.note}</p>
+          <p className="text-[13px] font-semibold text-navy">{DATE_RANGE.label[lang]}</p>
+          <p className="mt-1 text-[12.5px] leading-snug text-navy-400">{DATE_RANGE.note[lang]}</p>
           <div className="mt-3 grid grid-cols-2 gap-2">
             <div className="rounded-lg bg-navy-50 px-3 py-2">
-              <div className="text-[10px] uppercase tracking-wide text-navy-300">Desde</div>
-              <div className="text-[13px] font-semibold text-navy">{DATE_RANGE.start}</div>
+              <div className="text-[10px] uppercase tracking-wide text-navy-300">{UI.from[lang]}</div>
+              <div className="text-[13px] font-semibold text-navy">{DATE_RANGE.start[lang]}</div>
             </div>
             <div className="rounded-lg bg-navy-50 px-3 py-2">
-              <div className="text-[10px] uppercase tracking-wide text-navy-300">Hasta</div>
-              <div className="text-[13px] font-semibold text-navy">{DATE_RANGE.end}</div>
+              <div className="text-[10px] uppercase tracking-wide text-navy-300">{UI.to[lang]}</div>
+              <div className="text-[13px] font-semibold text-navy">{DATE_RANGE.end[lang]}</div>
             </div>
           </div>
         </div>

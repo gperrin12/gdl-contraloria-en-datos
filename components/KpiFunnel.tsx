@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { KPIS } from "@/lib/data";
+import type { Kpi } from "@/lib/data";
 import CountUp from "./CountUp";
 import InfoTooltip from "./InfoTooltip";
 
-export default function KpiFunnel() {
+export default function KpiFunnel({ items }: { items: Kpi[] }) {
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-      {KPIS.map((kpi, i) => (
+      {items.map((kpi, i) => (
         <div
           key={kpi.id}
           className="animate-floatUp"

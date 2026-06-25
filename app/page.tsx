@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Header from "@/components/Header";
 import DateRangePicker from "@/components/DateRangePicker";
@@ -5,15 +7,22 @@ import KpiFunnel from "@/components/KpiFunnel";
 import ChartCard from "@/components/ChartCard";
 import HorizontalBars from "@/components/charts/HorizontalBars";
 import DonutChart from "@/components/charts/DonutChart";
-import { ACCENT_PALETTE, DATASETS } from "@/lib/data";
+import { ACCENT_PALETTE, DATASETS, localizeDataset, localizeKpis } from "@/lib/data";
+import { UI, useLang } from "@/lib/i18n";
 
 const nf = new Intl.NumberFormat("es-MX");
 
-function total(id: keyof typeof DATASETS) {
-  return nf.format(DATASETS[id].data.reduce((s, d) => s + d.value, 0));
-}
-
 export default function Page() {
+  const { lang } = useLang();
+
+  const kpis = localizeKpis(lang);
+  const ds = Object.fromEntries(
+    Object.entries(DATASETS).map(([key, value]) => [key, localizeDataset(value, lang)])
+  ) as Record<keyof typeof DATASETS, ReturnType<typeof localizeDataset>>;
+
+  const total = (id: keyof typeof DATASETS) =>
+    nf.format(ds[id].data.reduce((s, d) => s + d.value, 0));
+
   return (
     <main className="min-h-screen">
       <Header />
@@ -24,129 +33,128 @@ export default function Page() {
           <div className="max-w-2xl">
             <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 px-3 py-1 text-[12px] font-semibold uppercase tracking-wide text-gold-700">
               <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-              Contraloría Ciudadana · Guadalajara
+              {UI.heroBadge[lang]}
             </span>
             <h1 className="mt-3 text-4xl font-bold leading-[1.05] text-navy sm:text-5xl">
-              Estadísticas
+              {UI.heroTitle[lang]}
             </h1>
             <p className="mt-3 text-[15px] leading-relaxed text-navy-400">
-              Tablero interactivo de la atención de denuncias ciudadanas. Pasa el cursor sobre
-              cualquier gráfica o dato para conocer su significado al detalle.
+              {UI.heroSubtitle[lang]}
             </p>
           </div>
           <DateRangePicker />
         </div>
       </section>
 
-      {/* KPIs / Embudo del proceso */}
+      {/* KPIs */}
       <section className="mx-auto max-w-[1280px] px-5 py-6 sm:px-8">
         <div className="mb-3 flex items-center gap-2">
           <h2 className="text-[13px] font-bold uppercase tracking-wide text-navy-300">
-            Cifras generales
+            {UI.sectionKpis[lang]}
           </h2>
           <span className="h-px flex-1 bg-navy/[0.07]" />
         </div>
-        <KpiFunnel />
+        <KpiFunnel items={kpis} />
       </section>
 
       {/* Gráficas */}
       <section className="mx-auto max-w-[1280px] px-5 pb-16 pt-2 sm:px-8">
         <div className="mb-3 flex items-center gap-2">
           <h2 className="text-[13px] font-bold uppercase tracking-wide text-navy-300">
-            Análisis de las denuncias
+            {UI.sectionCharts[lang]}
           </h2>
           <span className="h-px flex-1 bg-navy/[0.07]" />
         </div>
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <ChartCard
-            title={DATASETS.recepcion.title}
-            subtitle={DATASETS.recepcion.subtitle}
-            info={DATASETS.recepcion.info}
-            icon={DATASETS.recepcion.icon}
+            title={ds.recepcion.title}
+            subtitle={ds.recepcion.subtitle}
+            info={ds.recepcion.info}
+            icon={ds.recepcion.icon}
             total={total("recepcion")}
           >
-            <HorizontalBars data={DATASETS.recepcion.data} unit={DATASETS.recepcion.unit} />
+            <HorizontalBars data={ds.recepcion.data} unit={ds.recepcion.unit} />
           </ChartCard>
 
           <ChartCard
-            title={DATASETS.estatus.title}
-            subtitle={DATASETS.estatus.subtitle}
-            info={DATASETS.estatus.info}
-            icon={DATASETS.estatus.icon}
+            title={ds.estatus.title}
+            subtitle={ds.estatus.subtitle}
+            info={ds.estatus.info}
+            icon={ds.estatus.icon}
             total={total("estatus")}
           >
-            <HorizontalBars data={DATASETS.estatus.data} unit={DATASETS.estatus.unit} />
+            <HorizontalBars data={ds.estatus.data} unit={ds.estatus.unit} />
           </ChartCard>
 
           <ChartCard
-            title={DATASETS.dependencia.title}
-            subtitle={DATASETS.dependencia.subtitle}
-            info={DATASETS.dependencia.info}
-            icon={DATASETS.dependencia.icon}
+            title={ds.dependencia.title}
+            subtitle={ds.dependencia.subtitle}
+            info={ds.dependencia.info}
+            icon={ds.dependencia.icon}
             className="lg:col-span-2"
           >
-            <HorizontalBars data={DATASETS.dependencia.data} unit={DATASETS.dependencia.unit} />
+            <HorizontalBars data={ds.dependencia.data} unit={ds.dependencia.unit} />
           </ChartCard>
 
           <ChartCard
-            title={DATASETS.sexoDenunciante.title}
-            subtitle={DATASETS.sexoDenunciante.subtitle}
-            info={DATASETS.sexoDenunciante.info}
-            icon={DATASETS.sexoDenunciante.icon}
+            title={ds.sexoDenunciante.title}
+            subtitle={ds.sexoDenunciante.subtitle}
+            info={ds.sexoDenunciante.info}
+            icon={ds.sexoDenunciante.icon}
             total={total("sexoDenunciante")}
           >
             <DonutChart
-              data={DATASETS.sexoDenunciante.data}
-              unit={DATASETS.sexoDenunciante.unit}
+              data={ds.sexoDenunciante.data}
+              unit={ds.sexoDenunciante.unit}
               palette={[ACCENT_PALETTE[1], ACCENT_PALETTE[5]]}
             />
           </ChartCard>
 
           <ChartCard
-            title={DATASETS.sexoDenunciado.title}
-            subtitle={DATASETS.sexoDenunciado.subtitle}
-            info={DATASETS.sexoDenunciado.info}
-            icon={DATASETS.sexoDenunciado.icon}
+            title={ds.sexoDenunciado.title}
+            subtitle={ds.sexoDenunciado.subtitle}
+            info={ds.sexoDenunciado.info}
+            icon={ds.sexoDenunciado.icon}
             total={total("sexoDenunciado")}
           >
             <DonutChart
-              data={DATASETS.sexoDenunciado.data}
-              unit={DATASETS.sexoDenunciado.unit}
+              data={ds.sexoDenunciado.data}
+              unit={ds.sexoDenunciado.unit}
               palette={[ACCENT_PALETTE[1], ACCENT_PALETTE[5], ACCENT_PALETTE[7]]}
             />
           </ChartCard>
 
           <ChartCard
-            title={DATASETS.calificacion.title}
-            subtitle={DATASETS.calificacion.subtitle}
-            info={DATASETS.calificacion.info}
-            icon={DATASETS.calificacion.icon}
+            title={ds.calificacion.title}
+            subtitle={ds.calificacion.subtitle}
+            info={ds.calificacion.info}
+            icon={ds.calificacion.icon}
             total={total("calificacion")}
           >
-            <HorizontalBars data={DATASETS.calificacion.data} unit={DATASETS.calificacion.unit} />
+            <HorizontalBars data={ds.calificacion.data} unit={ds.calificacion.unit} />
           </ChartCard>
 
           <ChartCard
-            title={DATASETS.tipoSancion.title}
-            subtitle={DATASETS.tipoSancion.subtitle}
-            info={DATASETS.tipoSancion.info}
-            icon={DATASETS.tipoSancion.icon}
+            title={ds.tipoSancion.title}
+            subtitle={ds.tipoSancion.subtitle}
+            info={ds.tipoSancion.info}
+            icon={ds.tipoSancion.icon}
             total={total("tipoSancion")}
           >
-            <HorizontalBars data={DATASETS.tipoSancion.data} unit={DATASETS.tipoSancion.unit} />
+            <HorizontalBars data={ds.tipoSancion.data} unit={ds.tipoSancion.unit} />
           </ChartCard>
 
           <ChartCard
-            title={DATASETS.tipoResolucion.title}
-            subtitle={DATASETS.tipoResolucion.subtitle}
-            info={DATASETS.tipoResolucion.info}
-            icon={DATASETS.tipoResolucion.icon}
+            title={ds.tipoResolucion.title}
+            subtitle={ds.tipoResolucion.subtitle}
+            info={ds.tipoResolucion.info}
+            icon={ds.tipoResolucion.icon}
             className="lg:col-span-2"
           >
             <DonutChart
-              data={DATASETS.tipoResolucion.data}
-              unit={DATASETS.tipoResolucion.unit}
+              data={ds.tipoResolucion.data}
+              unit={ds.tipoResolucion.unit}
               palette={[ACCENT_PALETTE[0], ACCENT_PALETTE[2], ACCENT_PALETTE[1], ACCENT_PALETTE[3], ACCENT_PALETTE[4]]}
             />
           </ChartCard>
@@ -165,15 +173,12 @@ export default function Page() {
               className="h-11 w-auto"
             />
             <div>
-              <p className="text-[13px] font-semibold text-navy">Gobierno de Guadalajara</p>
-              <p className="text-[12px] text-navy-300">
-                Contraloría Ciudadana · Mirada Pública
-              </p>
+              <p className="text-[13px] font-semibold text-navy">{UI.footerOrg[lang]}</p>
+              <p className="text-[12px] text-navy-300">{UI.footerSub[lang]}</p>
             </div>
           </div>
           <p className="max-w-md text-[11.5px] leading-snug text-navy-300">
-            Prototipo de tablero interactivo para demostración. Los rangos de fecha son
-            provisionales. Datos: Contraloría en Datos — Estadísticas.
+            {UI.footerNote[lang]}
           </p>
         </div>
       </footer>

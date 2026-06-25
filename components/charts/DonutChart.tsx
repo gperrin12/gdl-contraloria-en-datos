@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Cell, Pie, PieChart, Tooltip } from "recharts";
 import type { Datum } from "@/lib/data";
+import { UI, useLang } from "@/lib/i18n";
 import ChartTooltip from "../ChartTooltip";
 
 const nf = new Intl.NumberFormat("es-MX");
@@ -15,6 +16,7 @@ type Props = {
 
 export default function DonutChart({ data, unit, palette }: Props) {
   const [active, setActive] = useState<number | null>(null);
+  const { lang } = useLang();
   const total = data.reduce((s, d) => s + d.value, 0);
   const visible = data.filter((d) => d.value > 0);
 
@@ -62,7 +64,7 @@ export default function DonutChart({ data, unit, palette }: Props) {
             {nf.format(focused ? focused.value : total)}
           </span>
           <span className="max-w-[110px] text-center text-[11px] leading-tight text-navy-300">
-            {focused ? focused.label : "Total"}
+            {focused ? focused.label : UI.total[lang]}
           </span>
         </div>
       </div>

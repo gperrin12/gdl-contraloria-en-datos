@@ -10,7 +10,10 @@ explicativos** en cada dato y un selector de **rango de fechas** (provisional).
 
 ## Características
 
-- **Embudo del proceso** (KPIs): muestra cómo avanzan las denuncias por las unidades
+- **Bilingüe (ES / EN)**: botón de cambio de idioma en la esquina superior derecha; la
+  preferencia se guarda en el navegador. Todo el contenido —títulos, descripciones,
+  etiquetas y tooltips— está traducido en `lib/data.ts` y `lib/i18n.tsx`.
+- **Indicadores principales** (KPIs): cifras clave de las unidades
   (Denuncias → Investigación → Substanciación → Resolutora), con contadores animados.
 - **Tooltips explicativos** en cada gráfica (ícono `i`) y en cada punto de dato (al pasar
   el cursor), describiendo qué significa la estadística.
@@ -47,7 +50,8 @@ npm run build && npm run start
 app/                 # Layout, página principal y estilos globales (incl. @font-face de Seravek)
 components/          # Header, KPIs, tarjetas de gráficas, tooltips
 components/charts/   # Gráficas (barras horizontales, dona)
-lib/data.ts          # Datos + descripciones (tooltips) + rango de fechas provisional
+lib/data.ts          # Datos bilingües (es/en) + descripciones (tooltips) + rango de fechas
+lib/i18n.tsx         # Contexto de idioma + cadenas de la interfaz (es/en)
 public/images/       # Íconos y logotipos (los mismos del sitio original)
 public/fonts/        # Tipografía Seravek (.otf)
 data/                # Fuente original (Excel)
