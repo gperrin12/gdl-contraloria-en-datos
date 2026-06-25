@@ -65,7 +65,7 @@ export const KPIS: RawKpi[] = [
     id: "denuncias",
     label: { es: "Unidad de Denuncias", en: "Complaints Unit" },
     value: 1304,
-    icon: "/images/g_expediente.svg",
+    icon: "/images/g_n_exp_unidad_denuncias.svg",
     info: {
       es: "Expedientes que se encuentran en la Unidad de Denuncias, donde se realiza la recepción, registro y clasificación inicial de cada denuncia para determinar su ruta de atención.",
       en: "Case files in the Complaints Unit, where each complaint is received, registered, and given an initial classification to determine how it will be handled.",
@@ -259,7 +259,7 @@ export const DATASETS: Record<string, RawDataset> = {
       es: "Dependencias municipales señaladas con mayor frecuencia en las denuncias. La categoría \u201cNo lo sé\u201d agrupa los casos en que la persona denunciante no identificó la dependencia.",
       en: "Municipal departments most frequently named in complaints. The \u201cI don't know\u201d category groups cases where the complainant did not identify the department.",
     },
-    icon: "/images/g_n_exp_unidad_denuncias.svg",
+    icon: "/images/g_expediente.svg",
     unit: { es: "denuncias", en: "complaints" },
     data: [
       {
