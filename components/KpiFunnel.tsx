@@ -12,7 +12,7 @@ export default function KpiFunnel({ items }: { items: Kpi[] }) {
           className="animate-floatUp"
           style={{ animationDelay: `${i * 80}ms` }}
         >
-          <div className="group relative z-0 flex h-full flex-col rounded-xl2 border border-navy/[0.06] bg-white p-4 shadow-card transition duration-300 hover:z-20 hover:-translate-y-1 hover:shadow-cardHover focus-within:z-20">
+          <div className="group relative flex h-full flex-col rounded-xl2 border border-navy/[0.06] bg-white p-4 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-cardHover">
             <span className="absolute right-3 top-3">
               <InfoTooltip text={kpi.info} side="bottom" />
             </span>
