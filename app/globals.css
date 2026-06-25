@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Seravek";
+  src: url("/fonts/Seravek-ExtraLight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Seravek";
+  src: url("/fonts/Seravek-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Seravek";
+  src: url("/fonts/Seravek.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Seravek";
+  src: url("/fonts/Seravek-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Seravek";
+  src: url("/fonts/Seravek-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Seravek";
+  src: url("/fonts/Seravek-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --gold: #cc9f52;
+  --navy: #16243f;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 100% -10%, rgba(204, 159, 82, 0.08), transparent 60%),
+    radial-gradient(900px 500px at -10% 0%, rgba(22, 36, 63, 0.05), transparent 55%),
+    #f7f8fa;
+  color: var(--navy);
+  font-family: "Seravek", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Recharts focus outlines off for cleaner look */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-floatUp {
+  animation: floatUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+::selection {
+  background: rgba(204, 159, 82, 0.25);
+}
