@@ -26,7 +26,7 @@ export default function ChartCard({
   const { lang } = useLang();
   return (
     <section
-      className={`group flex flex-col rounded-xl2 border border-navy/[0.06] bg-white p-5 shadow-card transition duration-300 hover:-translate-y-0.5 hover:shadow-cardHover ${className}`}
+      className={`group relative z-0 flex flex-col rounded-xl2 border border-navy/[0.06] bg-white p-5 shadow-card transition duration-300 hover:z-20 hover:-translate-y-0.5 hover:shadow-cardHover focus-within:z-20 ${className}`}
     >
       <header className="mb-4 flex items-start gap-3">
         {icon && (
